@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://eq7vhp2q8de0"]
+[gd_scene load_steps=10 format=3 uid="uid://eq7vhp2q8de0"]
 
-[ext_resource type="Texture2D" uid="uid://dipnius0rteqs" path="res://unicycle.png" id="1_81ofr"]
 [ext_resource type="Script" path="res://unicycle.gd" id="1_qa0rq"]
 [ext_resource type="Script" path="res://wheel.gd" id="2_s6mki"]
-[ext_resource type="Texture2D" uid="uid://csliy0ha313f1" path="res://cyclist0.png" id="3_273s8"]
+[ext_resource type="Texture2D" uid="uid://ce6nfedu0nh6t" path="res://wheel.png" id="3_8nrsv"]
+[ext_resource type="Texture2D" uid="uid://dtfydtxp67hjx" path="res://axle.png" id="4_kossc"]
+[ext_resource type="Texture2D" uid="uid://clqfekowy8oo7" path="res://torso.png" id="5_xdlif"]
+[ext_resource type="Texture2D" uid="uid://dootbhrnaqx1c" path="res://arm.png" id="6_52dq7"]
+[ext_resource type="Texture2D" uid="uid://28gnq87aogqc" path="res://upper_leg.png" id="7_1v4em"]
+[ext_resource type="Texture2D" uid="uid://df0bh87y60hg4" path="res://lower_leg.png" id="8_v7m6l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8gq1"]
 radius = 54.0093
@@ -15,32 +19,100 @@ script = ExtResource("1_qa0rq")
 script = ExtResource("2_s6mki")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel"]
-position = Vector2(3.05176e-05, 0.206955)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_t8gq1")
 
 [node name="Sprite2D" type="Sprite2D" parent="Wheel"]
-position = Vector2(3.05176e-05, -50.793)
-scale = Vector2(0.310345, 0.310345)
-texture = ExtResource("1_81ofr")
+scale = Vector2(0.155, 0.155)
+texture = ExtResource("3_8nrsv")
 
 [node name="Gary" type="RigidBody2D" parent="."]
 center_of_mass_mode = 1
-center_of_mass = Vector2(0, -200)
-
-[node name="Sprite2D" type="Sprite2D" parent="Gary"]
-position = Vector2(-6.75, -157.5)
-scale = Vector2(1.5875, 1.3875)
-texture = ExtResource("3_273s8")
+center_of_mass = Vector2(0, -100)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Gary"]
-position = Vector2(0, -60)
-scale = Vector2(0.033046, 0.197704)
-texture = ExtResource("1_81ofr")
+position = Vector2(0, -22)
+scale = Vector2(0.136, 0.14)
+texture = ExtResource("4_kossc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Gary"]
-polygon = PackedVector2Array(0, -215, 40, -205, 28, -106, 6, -106, 12, 11, -11, 11, -6, -106, -26, -101, -31, -168)
+position = Vector2(16, 148)
+polygon = PackedVector2Array(-18, -144, -13, -147, -13, -206, -2, -210, -13, -268, -20, -273, -17, -283, -21, -292, -37, -291, -37, -273, -29, -267, -34, -251, -25, -209, -18, -207, -19, -150)
 
-[node name="PinJoint2D" type="PinJoint2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Gary"]
+position = Vector2(-5, -109)
+scale = Vector2(0.091, 0.091)
+texture = ExtResource("5_xdlif")
+
+[node name="Bearing" type="PinJoint2D" parent="."]
+position = Vector2(0, -1)
 node_a = NodePath("../Gary")
 node_b = NodePath("../Wheel")
-softness = 1.1
+
+[node name="Arm" type="RigidBody2D" parent="."]
+z_index = 2
+mass = 0.157
+center_of_mass_mode = 1
+center_of_mass = Vector2(-25, -100)
+
+[node name="Sprite2D" type="Sprite2D" parent="Arm"]
+position = Vector2(-28, -101)
+scale = Vector2(0.09, 0.092)
+texture = ExtResource("6_52dq7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arm"]
+position = Vector2(58, 84)
+polygon = PackedVector2Array(-121, -171, -88, -183, -69, -200, -61, -204, -58, -191, -82, -178, -116, -164)
+
+[node name="Shoulder" type="PinJoint2D" parent="."]
+position = Vector2(-5, -112)
+node_a = NodePath("../Gary")
+node_b = NodePath("../Arm")
+
+[node name="Upper Leg" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+center_of_mass_mode = 1
+center_of_mass = Vector2(-10, -60)
+
+[node name="Sprite2D" type="Sprite2D" parent="Upper Leg"]
+position = Vector2(-2, -53)
+scale = Vector2(0.091, 0.128)
+texture = ExtResource("7_1v4em")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Upper Leg"]
+position = Vector2(8, 82)
+polygon = PackedVector2Array(-23, -114, -15, -113, 4, -158, -17, -159)
+
+[node name="Lower Leg" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+center_of_mass_mode = 1
+center_of_mass = Vector2(-2, -15)
+
+[node name="Sprite2D" type="Sprite2D" parent="Lower Leg"]
+position = Vector2(-1, -10)
+rotation = -0.23911
+scale = Vector2(0.116, 0.123)
+texture = ExtResource("8_v7m6l")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lower Leg"]
+position = Vector2(15, 48)
+polygon = PackedVector2Array(-26, -33, 3, -39, -19, -89, -34, -86, -18, -45)
+
+[node name="Knee" type="PinJoint2D" parent="."]
+position = Vector2(-12, -36)
+node_a = NodePath("../Upper Leg")
+node_b = NodePath("../Lower Leg")
+
+[node name="Hip" type="PinJoint2D" parent="."]
+position = Vector2(-1, -71)
+node_a = NodePath("../Upper Leg")
+node_b = NodePath("../Gary")
+
+[node name="Foot" type="PinJoint2D" parent="."]
+position = Vector2(8, 7)
+node_a = NodePath("../Lower Leg")
+node_b = NodePath("../Wheel")

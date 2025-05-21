@@ -13,6 +13,9 @@ func _process(delta: float):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	apply_torque_impulse(torque_impulse * delta)
-	apply_central_impulse(Vector2(torque_impulse * delta * 0.005, 0))
+	apply_central_impulse(Vector2(torque_impulse * delta * 0.004, 0))
 
 	angular_velocity = clampf(angular_velocity, -10, 10)
+	
+	if Input.is_action_just_pressed("jump"):
+		apply_central_impulse(Vector2(0, -1000))
