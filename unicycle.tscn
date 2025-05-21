@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://eq7vhp2q8de0"]
+
+[ext_resource type="Texture2D" uid="uid://dipnius0rteqs" path="res://unicycle.png" id="1_81ofr"]
+[ext_resource type="Script" path="res://unicycle.gd" id="1_qa0rq"]
+[ext_resource type="Script" path="res://wheel.gd" id="2_s6mki"]
+[ext_resource type="Texture2D" uid="uid://csliy0ha313f1" path="res://cyclist0.png" id="3_273s8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t8gq1"]
+radius = 54.0093
+
+[node name="Unicycle" type="Node2D"]
+script = ExtResource("1_qa0rq")
+
+[node name="Wheel" type="RigidBody2D" parent="."]
+script = ExtResource("2_s6mki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel"]
+position = Vector2(3.05176e-05, 0.206955)
+shape = SubResource("CircleShape2D_t8gq1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wheel"]
+position = Vector2(3.05176e-05, -50.793)
+scale = Vector2(0.310345, 0.310345)
+texture = ExtResource("1_81ofr")
+
+[node name="Gary" type="RigidBody2D" parent="."]
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, -200)
+
+[node name="Sprite2D" type="Sprite2D" parent="Gary"]
+position = Vector2(-6.75, -157.5)
+scale = Vector2(1.5875, 1.3875)
+texture = ExtResource("3_273s8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Gary"]
+position = Vector2(0, -60)
+scale = Vector2(0.033046, 0.197704)
+texture = ExtResource("1_81ofr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Gary"]
+polygon = PackedVector2Array(0, -215, 40, -205, 28, -106, 6, -106, 12, 11, -11, 11, -6, -106, -26, -101, -31, -168)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../Gary")
+node_b = NodePath("../Wheel")
+softness = 1.1

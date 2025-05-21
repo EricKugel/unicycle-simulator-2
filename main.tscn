@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://crgmiqvj1mnuu"]
+
+[ext_resource type="PackedScene" uid="uid://eq7vhp2q8de0" path="res://unicycle.tscn" id="1_n386u"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x353m"]
+distance = -650.0
+
+[node name="Main" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_x353m")
+
+[node name="Unicycle" parent="." instance=ExtResource("1_n386u")]
+position = Vector2(358, 401)
