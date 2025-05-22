@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://crgmiqvj1mnuu"]
+[gd_scene load_steps=4 format=3 uid="uid://crgmiqvj1mnuu"]
 
 [ext_resource type="PackedScene" uid="uid://eq7vhp2q8de0" path="res://unicycle.tscn" id="1_n386u"]
+[ext_resource type="Texture2D" uid="uid://dysb7tdmthccx" path="res://level0.png" id="2_snwwc"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x353m"]
 distance = -650.0
@@ -13,4 +14,15 @@ distance = -650.0
 shape = SubResource("WorldBoundaryShape2D_x353m")
 
 [node name="Unicycle" parent="." instance=ExtResource("1_n386u")]
-position = Vector2(358, 401)
+position = Vector2(787, 469)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(577.75, 326)
+scale = Vector2(1.36889, 1.42411)
+texture = ExtResource("2_snwwc")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+polygon = PackedVector2Array(8, 409, 40, 399, 96, 430, 225, 583, 1015, 585, 1094, 395, 1145, 358, 1353, 325, 1102, 802, -36, 699)
